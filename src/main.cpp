@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "TileMap.h"
 
 int main(int argc, char *argv[])
@@ -7,6 +8,11 @@ int main(int argc, char *argv[])
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "Bomberman");
     window.setFramerateLimit(144);
+
+    TileMap map;
+    map.loadDefault();
+    
+    std::cout << map;
 
     sf::Texture texture(pathToSprites.concat("gnome_blue.png"));
     sf::Sprite sprite(texture);

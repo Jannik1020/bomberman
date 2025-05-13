@@ -7,6 +7,8 @@ enum TileType{
         TILE_NONE
 };
 
+bool isValidTileType(int type);
+//bool isValidTileType(TileType type) {return type >= TILE_BREAKABLE && type <= TILE_NONE;}
 
 class Tile {
     TileType type;
@@ -14,6 +16,9 @@ class Tile {
 public:
     Tile(TileType type): type(type){}
     TileType getTileType() const {return type;}
+    void setTileType(TileType type) {
+        if(isValidTileType(type)) this->type = type;
+        else this->type = TILE_NONE;}
 };
 
 #endif

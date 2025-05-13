@@ -13,6 +13,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable(bomberman src/main.cpp
+                src/TileMapView.h src/TileMapView.cpp
                 src/TileMap.h src/TileMap.cpp
                 src/Tile.h    src/Tile.cpp)
 
