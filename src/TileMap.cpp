@@ -57,10 +57,11 @@ bool TileMap::loadFromList(std::initializer_list<int> list)
 }
 
 bool TileMap::loadDefault() {
-    for(int row = 1; row < rows; row+=2){
-        for(int column = 1; column < columns; column+=2){
-            // put unbreakable every other tile
-            tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE);
+    for(int row = 0; row < rows; row++){
+        for(int column = 0; column < columns; column++){
+            if(row == 0 || row == rows-1) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
+            if(column == 0 || column == columns-1) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
+            if((row) % 2 == 0 && (column) % 2 == 0) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
         }
     }
     return true;

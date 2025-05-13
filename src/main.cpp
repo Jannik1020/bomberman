@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "TileMap.h"
+#include "TileMapView.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,8 @@ int main(int argc, char *argv[])
     map.loadDefault();
     
     std::cout << map;
+
+    TileMapView mapView(map);
 
     sf::Texture texture(pathToSprites.concat("gnome_blue.png"));
     sf::Sprite sprite(texture);
@@ -29,7 +32,8 @@ int main(int argc, char *argv[])
         }
 
         window.clear();
-        window.draw(sprite);
+        // window.draw(sprite);
+        window.draw(mapView);
         window.display();
     }
 }

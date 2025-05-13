@@ -2,18 +2,15 @@
 #define TILEMAPVIEW_H
 
 #include <SFML/Graphics.hpp>
-// #include "TileMap.h"
+#include "TileMap.h"
 
-class TileMap;
-class TileMapView: sf::Drawable, sf::Transformable {
+class TileMapView: public sf::Drawable, public sf::Transformable {
     const TileMap & map;
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const {
-        states.transform *= getTransform();
-        
-
-    }
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
     public:
+    const static int width = 64;
+    const static int height = 64;
     TileMapView(const TileMap & tileMap): map(tileMap){}
 };
 
