@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.28)
-project(Bomberman LANGUAGES CXX)
+project(bomberman LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -12,6 +12,16 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp)
-target_compile_features(main PRIVATE cxx_std_17)
-target_link_libraries(main PRIVATE SFML::Graphics)
+add_executable(bomberman src/main.cpp)
+
+
+add_custom_target(copy_resources ALL 
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/resources
+        ${PROJECT_BINARY_DIR}/resources
+        COMMENT "copying resources into binary directory")
+
+add_dependencies(bomberman copy_resources)
+
+target_compile_features(bomberman PRIVATE cxx_std_17)
+target_link_libraries(bomberman PRIVATE SFML::Graphics)
