@@ -24,14 +24,16 @@ class TileMap{
 
     TileMap(): TileMap(defaultColumns, defaultRows){}
 
+    bool placeBreakableTile(int row, int column);
+
     bool loadFromFile(std::filesystem::path pathToMapFile);
     bool loadFromList(std::initializer_list<TileType> list);
     bool loadFromList(std::initializer_list<int> list);
     bool loadDefault();
 
     const std::vector<Tile> & getRawTiles() const {return tiles;}
-    // const Tile & getTileAt(int row, int column) const;
-    // Tile & getTileAt(int row, int column);
+    const Tile & getTileAt(int row, int column) const;
+    Tile & getTileAt(int row, int column);
 
 };
 

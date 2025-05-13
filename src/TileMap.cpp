@@ -1,9 +1,20 @@
 #include <iostream>
 #include "TileMap.h"
 
+bool TileMap::placeBreakableTile(int row, int column)
+{
+    Tile &tile = getTileAt(row, column);
+    if (tile.getTileType() != TILE_UNBREAKABLE)
+    {
+        tile.setTileType(TILE_BREAKABLE);
+        return true;
+    }
+    return false;
+}
+
 bool TileMap::loadFromList(std::initializer_list<TileType> list)
 {
-    //check if list dimensions match map dimensions
+    // check if list dimensions match map dimensions
 
     if (list.size() != columns * rows)
     {
@@ -25,7 +36,7 @@ bool TileMap::loadFromList(std::initializer_list<TileType> list)
 
 bool TileMap::loadFromList(std::initializer_list<int> list)
 {
-    //check if list dimensions match map dimensions
+    // check if list dimensions match map dimensions
     if (list.size() != columns * rows)
     {
         std::cerr << "TileMap::loadFromlist > initializer list of wrong dimension (" << list.size()
@@ -33,8 +44,7 @@ bool TileMap::loadFromList(std::initializer_list<int> list)
         return false;
     }
 
-
-    //copy list values as TileType to map
+    // copy list values as TileType to map
     std::vector<Tile>::iterator tile = tiles.begin();
     for (int type : list)
     {
@@ -56,19 +66,46 @@ bool TileMap::loadFromList(std::initializer_list<int> list)
     return true;
 }
 
-bool TileMap::loadDefault() {
-    for(int row = 0; row < rows; row++){
-        for(int column = 0; column < columns; column++){
-            if(row == 0 || row == rows-1) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
-            if(column == 0 || column == columns-1) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
-            if((row) % 2 == 0 && (column) % 2 == 0) {tiles.at(row*columns + column).setTileType(TILE_UNBREAKABLE); continue;}
+bool TileMap::loadDefault()
+{
+    for (int row = 0; row < rows; row++)
+    {
+        for (int column = 0; column < columns; column++)
+        {
+            if (row == 0 || row == rows - 1)
+            {
+                tiles.at(row * columns + column).setTileType(TILE_UNBREAKABLE);
+                continue;
+            }
+            if (column == 0 || column == columns - 1)
+            {
+                tiles.at(row * columns + column).setTileType(TILE_UNBREAKABLE);
+                continue;
+            }
+            if ((row) % 2 == 0 && (column) % 2 == 0)
+            {
+                tiles.at(row * columns + column).setTileType(TILE_UNBREAKABLE);
+                continue;
+            }
         }
     }
     return true;
 }
 
+const Tile &TileMap::getTileAt(int row, int column) const
+{
+    return tiles[row * columns + column];
+    throw std::out_of_range("TileMap::getTileAt > index out of bounds");
+}
 
-std::ostream& operator<<(std::ostream& os, const TileMap& map){
+Tile &TileMap::getTileAt(int row, int column)
+{
+    if(row * column <= rows * columns) return tiles[row * columns + column];
+    throw std::out_of_range("TileMap::getTileAt > index out of bounds");
+}
+
+std::ostream &operator<<(std::ostream &os, const TileMap &map)
+{
     os << "DEBUG > TileMap > operator<< > " << std::endl;
     int column = map.columns;
     for (const Tile &tile : map.tiles)
@@ -78,7 +115,7 @@ std::ostream& operator<<(std::ostream& os, const TileMap& map){
             os << std::endl;
             column = map.columns;
         }
-        os<< tile.getTileType();
+        os << tile.getTileType();
         column--;
     }
     os << std::endl;

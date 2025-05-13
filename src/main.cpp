@@ -12,6 +12,9 @@ int main(int argc, char *argv[])
 
     TileMap map;
     map.loadDefault();
+    map.placeBreakableTile(1, 5);
+    map.placeBreakableTile(1, 6);
+    map.placeBreakableTile(3, 9);
     
     std::cout << map;
 
