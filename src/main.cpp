@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
+#include "TileMap.h"
 
 int main(int argc, char *argv[])
 {

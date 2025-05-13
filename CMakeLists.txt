@@ -12,7 +12,9 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(bomberman src/main.cpp)
+add_executable(bomberman src/main.cpp
+                src/TileMap.h src/TileMap.cpp
+                src/Tile.h    src/Tile.cpp)
 
 
 add_custom_target(copy_resources ALL 
